@@ -11,10 +11,6 @@ public class Modelo {
 		listaFiguras = new ArrayList<Figura>();
 	}
 	
-	public void AnyadirFigura(Figura f){
-		listaFiguras.add(f);
-	}
-	
 	public List<Figura> getListado(){
 		return listaFiguras;
 	}
