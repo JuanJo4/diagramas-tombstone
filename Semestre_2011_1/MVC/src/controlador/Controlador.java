@@ -2,6 +2,8 @@ package controlador;
 
 import java.awt.Point;
 import javax.swing.SwingUtilities;
+
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.util.ListIterator;
 
@@ -49,6 +51,29 @@ public class Controlador {
 	
 	public Figura getFiguraEn(Point p){
 		return modelo.getFiguraEn(p);
+	}
+	
+	public void evMenuPressed(ActionEvent e){
+		if(e.getActionCommand().equals("Nuevo")){
+			System.out.println("Selecciono Nuevo");			
+		}else{
+			if(e.getActionCommand().equals("Abrir")){
+				System.out.println("Selecciono Abrir");
+			}else{
+				if(e.getActionCommand().equals("Guardar")){
+					System.out.println("Selecciono Guardar");
+				}else{
+					if(e.getActionCommand().equals("Salir")){
+						System.exit(0);
+					}else{
+						if(e.getActionCommand().equals("Acerca de")){
+							System.out.println("Selecciono Acerca de");
+						}
+					}
+					
+				}
+			}
+		}		
 	}
 	
 	public void eVmousePressed(MouseEvent ev) {

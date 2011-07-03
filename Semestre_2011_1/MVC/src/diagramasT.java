@@ -1,22 +1,14 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Event;
-import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
-import javax.swing.KeyStroke;
 import javax.swing.ScrollPaneConstants;
 
 import vista.Vista;
 import modelo.Modelo;
 import controlador.Controlador;
-
-
 
 public class diagramasT {
 	
@@ -30,36 +22,6 @@ public class diagramasT {
 			frame.setLocation(150,50);
 			frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
 			
-			/*		Creación de barra de menú		*/
-			JMenuBar menubar = new JMenuBar();						
-			JMenu menuarchivo = new JMenu("Archivo");
-			JMenu menuayuda = new JMenu("Ayuda");
-			menuarchivo.setMnemonic('A');
-			menuayuda.setMnemonic('u');
-			menubar.add(menuarchivo);
-			menubar.add(menuayuda);
-			
-			JMenuItem inicionuevo = new JMenuItem("Nuevo",'N');
-			JMenuItem inicioabrir = new JMenuItem("Abrir",'A');
-			JMenuItem inicioguardar = new JMenuItem("Guardar",'G');
-			JMenuItem iniciosalir = new JMenuItem("Salir",'S');
-			inicionuevo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, Event.CTRL_MASK));
-			inicioabrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, Event.CTRL_MASK));
-			inicioguardar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, Event.CTRL_MASK));
-			iniciosalir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Event.CTRL_MASK));
-			
-			JMenuItem ayudaacercade = new JMenuItem("Acerca de",'A');
-			ayudaacercade.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, Event.CTRL_MASK));
-						
-			menuarchivo.add(inicionuevo);
-			menuarchivo.add(inicioabrir);
-			menuarchivo.add(inicioguardar);
-			menuarchivo.addSeparator();
-			menuarchivo.add(iniciosalir);
-			
-			menuayuda.add(ayudaacercade);
-			
-				
 			/*		MVC		*/
 		    Modelo modelo = new Modelo();
 			Vista vista = new Vista(new Dimension(600,400),modelo);
@@ -71,7 +33,7 @@ public class diagramasT {
 			guiobjects.setLayout(new BorderLayout());
 			guiobjects.add(ModelScroll);
 			
-			frame.setJMenuBar(menubar);
+			frame.setJMenuBar(controlador.getVista().getMenuBar());
 			frame.pack();
 			
 		}catch (RuntimeException e){
