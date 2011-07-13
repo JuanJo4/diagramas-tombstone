@@ -75,7 +75,7 @@ public class Vista extends JPanel {
 		addMenuItem("Salir",'S',KeyEvent.VK_S,menuarchivo);
 		addMenuItem("Acerca de",'d',KeyEvent.VK_D,menuayuda);
 
-		activeMouseEvent();		
+		//activeMouseEvent();		
 	}
 	
 	public void paintComponent(Graphics g) {

@@ -1,6 +1,8 @@
 package controlador;
 
 import java.awt.Point;
+
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import java.awt.event.ActionEvent;
@@ -67,7 +69,7 @@ public class Controlador {
 						System.exit(0);
 					}else{
 						if(e.getActionCommand().equals("Acerca de")){
-							System.out.println("Selecciono Acerca de");
+							JOptionPane.showOptionDialog(vista, "Info","Acerca de DiagramasT", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[] {},null);
 						}
 					}
 					

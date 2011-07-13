@@ -20,7 +20,7 @@ public class diagramasT {
 			frame.setTitle("Diagramas de Tombstone");
 			frame.setVisible(true);
 			frame.setLocation(150,50);
-			frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+			frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);			
 			
 			/*		MVC		*/
 		    Modelo modelo = new Modelo();
