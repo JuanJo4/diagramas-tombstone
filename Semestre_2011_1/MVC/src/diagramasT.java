@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import vista.Vista;
 import modelo.Modelo;
+import vista.Vista;
 import controlador.Controlador;
 
 public class diagramasT {
@@ -20,7 +20,7 @@ public class diagramasT {
 			frame.setTitle("Diagramas de Tombstone");
 			frame.setVisible(true);
 			frame.setLocation(150,50);
-			frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);			
+			frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);		
 			
 			/*		MVC		*/
 		    Modelo modelo = new Modelo();

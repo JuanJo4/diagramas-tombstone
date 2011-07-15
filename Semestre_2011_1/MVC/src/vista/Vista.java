@@ -6,6 +6,7 @@ import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -15,11 +16,15 @@ import java.awt.event.ActionEvent;
 import modelo.Modelo;
 import modelo.Figura;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
+import javax.swing.border.BevelBorder;
 
 
 import controlador.Controlador;
@@ -45,15 +50,13 @@ public class Vista extends JPanel {
 	private Modelo modelo;
 	public Controlador controlador;  //IMPORTANTE DEBE SER REGISTRADO O TODO FALLA
 	
+	JLabel nameproyect = new JLabel();
 	JMenuBar menubar = new JMenuBar();
+	JPopupMenu popupmenu = new JPopupMenu();
 	JMenu menuarchivo = new JMenu("Archivo");
 	JMenu menuayuda = new JMenu("Ayuda");
 	
-	MenuActionListener evMenu = new MenuActionListener(){
-		public void actionPerformed(ActionEvent e) {
-			evMenuPressed(e);
-		}
-	};
+	
 	
 	public Vista(Dimension size, Modelo modelo){
 		super();
@@ -62,20 +65,36 @@ public class Vista extends JPanel {
 		setBackground(Color.white);
 		setFocusable(true);
 		
-		/*		Propiedades del menú		*/
+		/*		Propiedades del menú y popupmenu		*/
 		menuarchivo.setMnemonic('A');
 		menuayuda.setMnemonic('u');
 		menubar.add(menuarchivo);
 		menubar.add(menuayuda);
 		
-		addMenuItem("Nuevo",'N',KeyEvent.VK_N,menuarchivo);
-		addMenuItem("Abrir",'A',KeyEvent.VK_A,menuarchivo);
-		addMenuItem("Guardar",'G',KeyEvent.VK_G,menuarchivo);
+		addMenuItem("Nuevo",KeyEvent.VK_N,menuarchivo,null);
+		addMenuItem("Abrir",KeyEvent.VK_A,menuarchivo,null);
+		addMenuItem("Guardar",KeyEvent.VK_G,menuarchivo,null);
 		menuarchivo.addSeparator();
-		addMenuItem("Salir",'S',KeyEvent.VK_S,menuarchivo);
-		addMenuItem("Acerca de",'d',KeyEvent.VK_D,menuayuda);
-
-		//activeMouseEvent();		
+		addMenuItem("Salir",KeyEvent.VK_S,menuarchivo,null);
+		addMenuItem("Atajos de teclado",KeyEvent.VK_T,menuayuda,null);
+		addMenuItem("Acerca de",KeyEvent.VK_D,menuayuda,null);
+		
+		addMenuItem("Agregar Compilador",KeyEvent.VK_C,null,popupmenu);
+		addMenuItem("Agregar Máquina",KeyEvent.VK_M,null,popupmenu);
+		addMenuItem("Agregar Programa",KeyEvent.VK_P,null,popupmenu);
+		addMenuItem("Agregar Interprete",KeyEvent.VK_I,null,popupmenu);			
+	}
+	
+	public void setNameProyect(String name){
+		nameproyect.setText("Compilador: " + name);
+		nameproyect.setBounds(0,this.getHeight()-20,this.getWidth(),20);
+		nameproyect.setVisible(true);
+		this.add(nameproyect);
+		this.repaint();
+	}
+	
+	public String getNameProyect(){
+		return nameproyect.getText();
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -90,11 +109,30 @@ public class Vista extends JPanel {
 		}
 	}
 	
-	public void addMenuItem(String label,char mnemonic,int keyAcelerator,JMenu parent){
-		JMenuItem menuitem = new JMenuItem(label,mnemonic);
+	public void addMenuItem(String label,int keyAcelerator,JMenu parent, JPopupMenu parentpopup){
+		JMenuItem menuitem;
+		
+		//if(parent!=null)
+		//menuitem = new JMenuItem(label,mnemonic);
+		//else{
+			menuitem = new JMenuItem(label,new ImageIcon("imágenes/"+ label +".png"));
+			menuitem.setHorizontalTextPosition(JMenuItem.RIGHT);
+		//}
+		
 		menuitem.setAccelerator(KeyStroke.getKeyStroke(keyAcelerator, Event.CTRL_MASK));
+		MenuActionListener evMenu = new MenuActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				evMenuPressed(e);
+			}
+		};
+		
 		menuitem.addActionListener(evMenu);		
-		parent.add(menuitem);		
+		if(parent!=null)
+			parent.add(menuitem);
+		else{
+			parentpopup.add(menuitem);
+			popupmenu.setBorder(new BevelBorder(BevelBorder.RAISED));
+		}
 	}
 	public JMenuBar getMenuBar(){
 		return menubar;
@@ -128,7 +166,13 @@ public class Vista extends JPanel {
 		}
 	}
 	
+	public void showPopupmenu(MouseEvent mouseEvent){
+		if (popupmenu.isPopupTrigger(mouseEvent)) 
+			popupmenu.show(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY());		    
+	}
+	
 	public void activeMouseEvent(){
+		
 		MouseController mouseControl = new MouseController() {
 			public void mouseClicked(MouseEvent event) {}
 			public void mouseEntered(MouseEvent event) {}
@@ -144,8 +188,18 @@ public class Vista extends JPanel {
 				eVmouseDragged(event);	
 			}
 		};
+		
 		this.addMouseListener(mouseControl);
 		this.addMouseMotionListener(mouseControl);
+		this.addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent event) {
+				showPopupmenu(event);	
+			}
+			public void mouseReleased(MouseEvent event) {
+				showPopupmenu(event);	
+			}
+		});
+		
 	}
 	
 }

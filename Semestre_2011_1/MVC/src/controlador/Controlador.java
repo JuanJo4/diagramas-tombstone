@@ -2,6 +2,7 @@ package controlador;
 
 import java.awt.Point;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -14,6 +15,7 @@ import modelo.Circulo;
 import modelo.Cuadrado;
 import modelo.Figura;
 import modelo.Modelo;
+
 
 public class Controlador {
 	
@@ -56,37 +58,76 @@ public class Controlador {
 	}
 	
 	public void evMenuPressed(ActionEvent e){
-		if(e.getActionCommand().equals("Nuevo")){
-			System.out.println("Selecciono Nuevo");			
-		}else{
-			if(e.getActionCommand().equals("Abrir")){
-				System.out.println("Selecciono Abrir");
-			}else{
-				if(e.getActionCommand().equals("Guardar")){
-					System.out.println("Selecciono Guardar");
+		stringEvent actionCommand = new stringEvent(e.getActionCommand());
+		
+		switch(actionCommand.getIntEvent()){
+			case stringEvent.NUEVO:
+				String name = (String)JOptionPane.showInputDialog(vista,"Nombre del Compilador","Nuevo Compilador",JOptionPane.INFORMATION_MESSAGE,
+						new ImageIcon("imágenes/Nuevo.png"),null, null);
+				if(name.length()!=0){
+					vista.activeMouseEvent();
+					vista.setNameProyect(name);
+					JOptionPane.showOptionDialog(vista, "Para añadir componentes presione\n" +
+														"Click derecho",
+							"Tips", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,
+							new ImageIcon("imágenes/info.png"), new Object[] {},null);
 				}else{
-					if(e.getActionCommand().equals("Salir")){
-						System.exit(0);
-					}else{
-						if(e.getActionCommand().equals("Acerca de")){
-							JOptionPane.showOptionDialog(vista, "Info","Acerca de DiagramasT", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[] {},null);
-						}
-					}
-					
+					JOptionPane.showOptionDialog(vista, "Debe ingresar un nombre válido",
+				"Ouch!", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE,
+				new ImageIcon("imágenes/error.png"), new Object[] {},null);
 				}
-			}
-		}		
+					
+			break;	
+			case stringEvent.ABRIR:
+			break;
+			case stringEvent.GUARDAR:
+			break;
+			case stringEvent.SALIR:
+				System.exit(0);
+			break;
+			case stringEvent.ATAJOS:
+				JOptionPane.showOptionDialog(vista, "   Nuevo         Ctrl + N\n" +
+													"   Abrir            Ctrl + A\n" +
+													"   Guardar      Ctrl + G\n" +
+													"   Salir             Ctrl + S\n" +
+													"   Acerca de   Ctrl + D\n\n" +													
+													"   Agregar Compilador    Ctrl + C\n" +
+													"   Agregar Máquina         Ctrl + M\n" +
+													"   Agregar Programa      Ctrl + P\n" +
+													"   Agregar Interprete       Ctrl + I",
+										"Atajos de teclado", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,
+										new ImageIcon("imágenes/info.png"), new Object[] {},null);
+			break;
+			case stringEvent.ACERCA_DE:
+				JOptionPane.showOptionDialog(vista,"Aplicación interactiva que permite diseñar\n" +
+													"compiladores mediante Diagramas de Tombstone\n" +
+													"o también llamados Diagramas T","Acerca de DiagramasT", 
+													JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, new ImageIcon("imágenes/info.png"), new Object[] {},null);
+			break;
+			case stringEvent.AGREGAR_COMPILADOR:
+				System.out.println("add compiler");
+			break;
+			case stringEvent.AGREGAR_MAQUINA:
+				System.out.println("add machine");
+			break;
+			case stringEvent.AGREGAR_PROGRAMA:
+				System.out.println("add program");
+			break;
+			case stringEvent.AGREGAR_INTERPRETE:
+				System.out.println("add interprete");
+			break;			
+		}
 	}
 	
 	public void eVmousePressed(MouseEvent ev) {
 		if(SwingUtilities.isLeftMouseButton(ev)){ 			//Click boton izquierdo selecciona figura
 			seleccionada=this.getFiguraEn(ev.getPoint());
-		}else if(SwingUtilities.isRightMouseButton(ev)){		//click boton derecho añade figura tipo cuadrado
+		}/*else if(SwingUtilities.isRightMouseButton(ev)){		//click boton derecho añade figura tipo cuadrado
 			this.anyadirFigura(new Cuadrado(ev.getPoint(),40));			
 		}else if(SwingUtilities.isMiddleMouseButton(ev))//click boton medio añade figura tipo circulo
 		{
 			this.anyadirFigura(new Circulo(ev.getPoint(),40));
-		}
+		}*/
 		vista.repaint();		
 	}
 	
