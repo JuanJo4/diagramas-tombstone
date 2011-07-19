@@ -24,7 +24,7 @@ public class diagramasT {
 			
 			/*		MVC		*/
 		    Modelo modelo = new Modelo();
-			Vista vista = new Vista(new Dimension(600,400),modelo);
+			Vista vista = new Vista(new Dimension(700,500),modelo);
 			final Controlador controlador = new Controlador(modelo,vista);
 			vista.controlador=controlador; //Lo registro para su uso, deberia ser un metodo pero por simplificacion
 			

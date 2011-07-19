@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,6 +14,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import modelo.Cuadrado;
 import modelo.Modelo;
 import modelo.Figura;
 
@@ -112,12 +114,8 @@ public class Vista extends JPanel {
 	public void addMenuItem(String label,int keyAcelerator,JMenu parent, JPopupMenu parentpopup){
 		JMenuItem menuitem;
 		
-		//if(parent!=null)
-		//menuitem = new JMenuItem(label,mnemonic);
-		//else{
-			menuitem = new JMenuItem(label,new ImageIcon("img/"+ label +".png"));
-			menuitem.setHorizontalTextPosition(JMenuItem.RIGHT);
-		//}
+		menuitem = new JMenuItem(label,new ImageIcon("img/"+ label +".png"));
+		menuitem.setHorizontalTextPosition(JMenuItem.RIGHT);
 		
 		menuitem.setAccelerator(KeyStroke.getKeyStroke(keyAcelerator, Event.CTRL_MASK));
 		MenuActionListener evMenu = new MenuActionListener(){
@@ -126,7 +124,8 @@ public class Vista extends JPanel {
 			}
 		};
 		
-		menuitem.addActionListener(evMenu);		
+		menuitem.addActionListener(evMenu);	
+		
 		if(parent!=null)
 			parent.add(menuitem);
 		else{
@@ -168,7 +167,7 @@ public class Vista extends JPanel {
 	
 	public void showPopupmenu(MouseEvent mouseEvent){
 		if (popupmenu.isPopupTrigger(mouseEvent)) 
-			popupmenu.show(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY());		    
+			popupmenu.show(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY());		
 	}
 	
 	public void activeMouseEvent(){
@@ -190,7 +189,7 @@ public class Vista extends JPanel {
 		};
 		
 		this.addMouseListener(mouseControl);
-		this.addMouseMotionListener(mouseControl);
+		this.addMouseMotionListener(mouseControl);		
 		this.addMouseListener(new MouseAdapter(){
 			public void mousePressed(MouseEvent event) {
 				showPopupmenu(event);	

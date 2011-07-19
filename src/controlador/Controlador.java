@@ -4,10 +4,10 @@ import java.awt.Point;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.util.ListIterator;
 
 import vista.Vista;
@@ -67,16 +67,15 @@ public class Controlador {
 				if(name.length()!=0){
 					vista.activeMouseEvent();
 					vista.setNameProyect(name);
-					JOptionPane.showOptionDialog(vista, "Para añadir componentes haga\n" +
+					JOptionPane.showMessageDialog(vista, "Para añadir componentes haga\n" + 
 														"click derecho sobre el panel",
-							"Tips", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,
-							new ImageIcon("img/info.png"), new Object[] {},null);
+														"Tips", JOptionPane.INFORMATION_MESSAGE,
+														new ImageIcon("img/info.png"));
 				}else{
 					JOptionPane.showOptionDialog(vista, "Debe ingresar un nombre válido",
 				"Ouch!", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE,
 				new ImageIcon("img/error.png"), new Object[] {},null);
-				}
-					
+				}					
 			break;	
 			case stringEvent.ABRIR:
 			break;
@@ -102,13 +101,13 @@ public class Controlador {
 				JOptionPane.showOptionDialog(vista,"Aplicación interactiva que permite diseñar\n" +
 													"compiladores mediante Diagramas de Tombstone\n" +
 													"o también llamados Diagramas T","Acerca de DiagramasT", 
-													JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, new ImageIcon("img/info.png"), new Object[] {},null);
+													JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE , new ImageIcon("img/info.png"), new Object[] {},null);
 			break;
-			case stringEvent.AGREGAR_COMPILADOR:
-				System.out.println("add compiler");
+			case stringEvent.AGREGAR_COMPILADOR:	
+				this.anyadirFigura(new Cuadrado(new Point(10,10),50));		
 			break;
 			case stringEvent.AGREGAR_MAQUINA:
-				System.out.println("add machine");
+				this.anyadirFigura(new Circulo(new Point(10,10),50));
 			break;
 			case stringEvent.AGREGAR_PROGRAMA:
 				System.out.println("add program");
@@ -117,17 +116,11 @@ public class Controlador {
 				System.out.println("add interprete");
 			break;			
 		}
+		vista.repaint();
 	}
 	
 	public void eVmousePressed(MouseEvent ev) {
-		if(SwingUtilities.isLeftMouseButton(ev)){ 			//Click boton izquierdo selecciona figura
-			seleccionada=this.getFiguraEn(ev.getPoint());
-		}/*else if(SwingUtilities.isRightMouseButton(ev)){		//click boton derecho añade figura tipo cuadrado
-			this.anyadirFigura(new Cuadrado(ev.getPoint(),40));			
-		}else if(SwingUtilities.isMiddleMouseButton(ev))//click boton medio añade figura tipo circulo
-		{
-			this.anyadirFigura(new Circulo(ev.getPoint(),40));
-		}*/
+		seleccionada=this.getFiguraEn(ev.getPoint());		
 		vista.repaint();		
 	}
 	
@@ -144,7 +137,7 @@ public class Controlador {
 		if(seleccionada!=null){
 			seleccionada.setSeleccionada(false);
 			seleccionada=null;
-		}
+		}		
+		
 	}
-
 }
