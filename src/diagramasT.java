@@ -36,6 +36,8 @@ public class diagramasT {
 			frame.setJMenuBar(controlador.getVista().getMenuBar());
 			frame.pack();
 			
+			System.out.println("hola");
+			
 		}catch (RuntimeException e){
 			exitApplication();
 		}
