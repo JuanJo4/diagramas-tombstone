@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
-public class Cuadrado extends Figura {
+public class Compilador extends Figura {
 
 	private int ancho;
-	public Cuadrado(Point posicion, int ancho){
+	public Compilador(Point posicion, int ancho){
 		this.posicion=posicion;
 		this.ancho=ancho;
 		this.seleccionada=false;  //Deberia estar en el constructor pero por simplicidad
@@ -32,7 +32,12 @@ public class Cuadrado extends Figura {
 	public void dibujar(Graphics g)
 	{
 		g.setColor(Color.BLUE);
-		g.fillRect(this.getX(), this.getY(), this.getAncho(), this.getAncho());
+		
+		g.fillRect(this.getX(), this.getY(), this.getAncho(), this.getAncho()); // cuadrado central
+		g.fillRect(this.getX()-this.getAncho(), this.getY(), this.getAncho(), this.getAncho()); // cuadrado izquierdo
+		g.fillRect(this.getX()+this.getAncho(), this.getY(), this.getAncho(), this.getAncho());
+		g.fillRect(this.getX(), this.getY()+this.getAncho(), this.getAncho(), this.getAncho());
+		
 		if(this.getSeleccionada()){
 			g.setColor(Color.RED);
 			g.drawRect(this.getX()+7, this.getY()+7, this.getAncho()-20, this.getAncho()-20);

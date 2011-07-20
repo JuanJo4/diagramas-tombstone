@@ -11,8 +11,10 @@ import java.awt.event.MouseMotionAdapter;
 import java.util.ListIterator;
 
 import vista.Vista;
-import modelo.Circulo;
-import modelo.Cuadrado;
+import modelo.Interprete;
+import modelo.Programa;
+import modelo.Maquina;
+import modelo.Compilador;
 import modelo.Figura;
 import modelo.Modelo;
 
@@ -67,12 +69,12 @@ public class Controlador {
 				if(name.length()!=0){
 					vista.activeMouseEvent();
 					vista.setNameProyect(name);
-					JOptionPane.showMessageDialog(vista, "Para añadir componentes haga\n" + 
+					JOptionPane.showMessageDialog(vista, "Para aï¿½adir componentes haga\n" + 
 														"click derecho sobre el panel",
 														"Tips", JOptionPane.INFORMATION_MESSAGE,
 														new ImageIcon("img/info.png"));
 				}else{
-					JOptionPane.showOptionDialog(vista, "Debe ingresar un nombre válido",
+					JOptionPane.showOptionDialog(vista, "Debe ingresar un nombre vï¿½lido",
 				"Ouch!", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE,
 				new ImageIcon("img/error.png"), new Object[] {},null);
 				}					
@@ -91,29 +93,29 @@ public class Controlador {
 													"   Salir             Ctrl + S\n" +
 													"   Acerca de   Ctrl + D\n\n" +													
 													"   Agregar Compilador    Ctrl + C\n" +
-													"   Agregar Máquina         Ctrl + M\n" +
+													"   Agregar Mï¿½quina         Ctrl + M\n" +
 													"   Agregar Programa      Ctrl + P\n" +
 													"   Agregar Interprete       Ctrl + I",
 										"Atajos de teclado", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE,
 										new ImageIcon("img/info.png"), new Object[] {},null);
 			break;
 			case stringEvent.ACERCA_DE:
-				JOptionPane.showOptionDialog(vista,"Aplicación interactiva que permite diseñar\n" +
+				JOptionPane.showOptionDialog(vista,"Aplicaciï¿½n interactiva que permite diseï¿½ar\n" +
 													"compiladores mediante Diagramas de Tombstone\n" +
-													"o también llamados Diagramas T","Acerca de DiagramasT", 
+													"o tambiï¿½n llamados Diagramas T","Acerca de DiagramasT", 
 													JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE , new ImageIcon("img/info.png"), new Object[] {},null);
 			break;
 			case stringEvent.AGREGAR_COMPILADOR:	
-				this.anyadirFigura(new Cuadrado(new Point(10,10),50));		
+				this.anyadirFigura(new Compilador(new Point(20,20),30));		
 			break;
 			case stringEvent.AGREGAR_MAQUINA:
-				this.anyadirFigura(new Circulo(new Point(10,10),50));
+				this.anyadirFigura(new Maquina(new Point(20,20),30));
 			break;
 			case stringEvent.AGREGAR_PROGRAMA:
-				System.out.println("add program");
+				this.anyadirFigura(new Programa(new Point(20,20),30));
 			break;
 			case stringEvent.AGREGAR_INTERPRETE:
-				System.out.println("add interprete");
+				this.anyadirFigura(new Interprete(new Point(20,20),30));
 			break;			
 		}
 		vista.repaint();

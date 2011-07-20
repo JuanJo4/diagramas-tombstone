@@ -15,7 +15,7 @@ public class diagramasT {
 	public static void main(String[] args) {
 		try{
 					
-			/*		Creación del frame		*/
+			/*		Creaciï¿½n del frame		*/
 			final JFrame frame = new JFrame();
 			frame.setTitle("Diagramas de Tombstone");
 			frame.setVisible(true);
@@ -36,7 +36,7 @@ public class diagramasT {
 			frame.setJMenuBar(controlador.getVista().getMenuBar());
 			frame.pack();
 			
-			System.out.println("hola");
+			//System.out.println("hola");
 			
 		}catch (RuntimeException e){
 			exitApplication();

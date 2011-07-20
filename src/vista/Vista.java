@@ -14,7 +14,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import modelo.Cuadrado;
+import modelo.Compilador;
 import modelo.Modelo;
 import modelo.Figura;
 
@@ -67,7 +67,7 @@ public class Vista extends JPanel {
 		setBackground(Color.white);
 		setFocusable(true);
 		
-		/*		Propiedades del menú y popupmenu		*/
+		/*		Propiedades del menï¿½ y popupmenu		*/
 		menuarchivo.setMnemonic('A');
 		menuayuda.setMnemonic('u');
 		menubar.add(menuarchivo);
@@ -82,7 +82,7 @@ public class Vista extends JPanel {
 		addMenuItem("Acerca de",KeyEvent.VK_D,menuayuda,null);
 		
 		addMenuItem("Agregar Compilador",KeyEvent.VK_C,null,popupmenu);
-		addMenuItem("Agregar Máquina",KeyEvent.VK_M,null,popupmenu);
+		addMenuItem("Agregar Mï¿½quina",KeyEvent.VK_M,null,popupmenu);
 		addMenuItem("Agregar Programa",KeyEvent.VK_P,null,popupmenu);
 		addMenuItem("Agregar Interprete",KeyEvent.VK_I,null,popupmenu);			
 	}
