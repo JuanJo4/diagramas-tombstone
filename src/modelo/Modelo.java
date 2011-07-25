@@ -18,12 +18,24 @@ public class Modelo {
 	public void anyadirFigura(Figura f){
 		listaFiguras.add(f);
 	}
-	
+	public void eliminarFigura(Figura f){//zuri
+                //listaFiguras.remove(f); NO ME FUNCIONA
+                  listaFiguras.removeAll(listaFiguras);//SI FUNCIONA PERO LAS BORRA TODASSSS
+        }
 	public Figura getFiguraEn(Point p){
 		for (Figura elemento : getListado()) {
 			if(elemento.dentroFigura(p)){
 				elemento.seleccionada=true;
 				return elemento;				
+			}
+		}
+		return null;
+	}
+        public Figura getFiguraSa(Point p){//zuri
+		for (Figura elemento : getListado()) {
+			if(elemento.dentroFigura(p)){
+				elemento.seleccionada=false;
+				return elemento;
 			}
 		}
 		return null;

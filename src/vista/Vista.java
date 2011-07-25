@@ -5,16 +5,14 @@ import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import modelo.Compilador;
 import modelo.Modelo;
 import modelo.Figura;
 
@@ -32,7 +30,7 @@ import javax.swing.border.BevelBorder;
 import controlador.Controlador;
 
 /*		Eventos del mouse en el panel		*/
-class MouseController implements MouseListener, MouseMotionListener {
+class MouseController implements MouseListener, MouseMotionListener, KeyListener {
 	public void mouseClicked(MouseEvent event) {}
 	public void mouseEntered(MouseEvent event) {}
 	public void mouseExited(MouseEvent event) {}
@@ -40,6 +38,22 @@ class MouseController implements MouseListener, MouseMotionListener {
 	public void mouseReleased(MouseEvent event) {}
 	public void mouseDragged(MouseEvent event) {}
 	public void mouseMoved(MouseEvent event) {}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println(e.getKeyChar());
+		
+	}
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 /*		Eventos del menu		*/
@@ -62,12 +76,12 @@ public class Vista extends JPanel {
 	
 	public Vista(Dimension size, Modelo modelo){
 		super();
-		this.modelo=modelo;		
+		this.modelo=modelo;
 		setPreferredSize(size);
 		setBackground(Color.white);
 		setFocusable(true);
 		
-		/*		Propiedades del men� y popupmenu		*/
+		/*		Propiedades del menu y popupmenu		*/
 		menuarchivo.setMnemonic('A');
 		menuayuda.setMnemonic('u');
 		menubar.add(menuarchivo);
@@ -82,9 +96,19 @@ public class Vista extends JPanel {
 		addMenuItem("Acerca de",KeyEvent.VK_D,menuayuda,null);
 		
 		addMenuItem("Agregar Compilador",KeyEvent.VK_C,null,popupmenu);
-		addMenuItem("Agregar M�quina",KeyEvent.VK_M,null,popupmenu);
+		addMenuItem("Agregar Maquina",KeyEvent.VK_M,null,popupmenu);
 		addMenuItem("Agregar Programa",KeyEvent.VK_P,null,popupmenu);
-		addMenuItem("Agregar Interprete",KeyEvent.VK_I,null,popupmenu);			
+		addMenuItem("Agregar Interprete",KeyEvent.VK_I,null,popupmenu);
+                addMenuItem("Eliminar Compilador",KeyEvent.VK_A,null,popupmenu);
+                addMenuItem("Eliminar Maquina",KeyEvent.VK_B,null,popupmenu);
+                addMenuItem("Eliminar Programa",KeyEvent.VK_D,null,popupmenu);
+                addMenuItem("Eliminar Interprete",KeyEvent.VK_E,null,popupmenu);
+                
+//      this.addKeyListener(new java.awt.event.KeyAdapter() {
+//          public void keyPressed(java.awt.event.KeyEvent evt) {
+//              System.out.println(evt.getKeyChar());
+//          }
+//      });
 	}
 	
 	public void setNameProyect(String name){
@@ -167,7 +191,7 @@ public class Vista extends JPanel {
 	
 	public void showPopupmenu(MouseEvent mouseEvent){
 		if (popupmenu.isPopupTrigger(mouseEvent)) 
-			popupmenu.show(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY());		
+			popupmenu.show(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY());
 	}
 	
 	public void activeMouseEvent(){
@@ -178,10 +202,12 @@ public class Vista extends JPanel {
 			public void mouseExited(MouseEvent event) {}
 			public void mouseMoved(MouseEvent event) {}
 			public void mousePressed(MouseEvent event) {
-				eVmousePressed(event);	
+				showPopupmenu(event);
+				eVmousePressed(event);					
 			}
-			public void mouseReleased(MouseEvent event) {
-				eVmouseReleased(event);	
+			public void mouseReleased(MouseEvent event) {				
+				showPopupmenu(event);
+				eVmouseReleased(event);
 			}
 			public void mouseDragged(MouseEvent event) {
 				eVmouseDragged(event);	
@@ -190,15 +216,7 @@ public class Vista extends JPanel {
 		
 		this.addMouseListener(mouseControl);
 		this.addMouseMotionListener(mouseControl);		
-		this.addMouseListener(new MouseAdapter(){
-			public void mousePressed(MouseEvent event) {
-				showPopupmenu(event);	
-			}
-			public void mouseReleased(MouseEvent event) {
-				showPopupmenu(event);	
-			}
-		});
-		
+		//popupmenu.addMouseListener(mouseControl);
 	}
 	
 }

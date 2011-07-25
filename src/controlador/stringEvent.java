@@ -12,6 +12,10 @@ public class stringEvent {
 	public static final int AGREGAR_MAQUINA = 7;
 	public static final int AGREGAR_PROGRAMA = 8;
 	public static final int AGREGAR_INTERPRETE = 9;
+    public static final int ELIMINAR_COMPILADOR = 10;
+    public static final int ELIMINAR_MAQUINA = 11;
+    public static final int ELIMINAR_PROGRAMA = 12;
+    public static final int ELIMINAR_INTERPRETE = 13;
 	
 	public stringEvent(String actionCommand){
 		this.actionCommand = actionCommand;
@@ -39,7 +43,7 @@ public class stringEvent {
 		if(actionCommand.equals("Agregar Compilador")){
 			return stringEvent.AGREGAR_COMPILADOR;
 		}
-		if(actionCommand.equals("Agregar Máquina")){
+		if(actionCommand.equals("Agregar Maquina")){
 			return stringEvent.AGREGAR_MAQUINA;
 		}
 		if(actionCommand.equals("Agregar Programa")){
@@ -47,6 +51,18 @@ public class stringEvent {
 		}
 		if(actionCommand.equals("Agregar Interprete")){
 			return stringEvent.AGREGAR_INTERPRETE;	
+		}
+        if(actionCommand.equals("Eliminar Compilador")){
+			return stringEvent.ELIMINAR_COMPILADOR;
+		}
+        if(actionCommand.equals("Eliminar Maquina")){
+			return stringEvent.ELIMINAR_MAQUINA;
+		}
+        if(actionCommand.equals("Eliminar Programa")){
+			return stringEvent.ELIMINAR_PROGRAMA;
+		}
+        if(actionCommand.equals("Eliminar Interprete")){
+			return stringEvent.ELIMINAR_INTERPRETE;
 		}
 		return -1;
 	}	

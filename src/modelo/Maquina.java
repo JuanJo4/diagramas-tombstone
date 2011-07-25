@@ -7,11 +7,13 @@ import java.awt.Point;
 public class Maquina extends Figura {
 
 	private int ancho;
+	private String nombre;
 	private int []xPoints = new int [3];
 	private int []yPoints = new int [3];
-	public Maquina(Point posicion, int ancho){
+	public Maquina(Point posicion, int ancho, String a){
 		this.posicion=posicion;
 		this.ancho=ancho;
+        this.nombre=a;
 		this.seleccionada=false;  //Deberia estar en el constructor pero por simplicidad
 	}
 	
@@ -45,6 +47,9 @@ public class Maquina extends Figura {
 		yPoints[2] = this.getY()+this.getAncho();
 		
 		g.fillPolygon(xPoints, yPoints, 3);
+		g.setColor(Color.black);
+        g.drawString(nombre,getX() + 10 , getY() + 20);
+
 		
 		if(this.getSeleccionada()){
 			g.setColor(Color.RED);

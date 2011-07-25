@@ -34,7 +34,9 @@ public class diagramasT {
 			guiobjects.add(ModelScroll);
 			
 			frame.setJMenuBar(controlador.getVista().getMenuBar());
+			frame.addKeyListener(controlador.activarEscuchadorKey());
 			frame.pack();
+		
 			
 			//System.out.println("hola");
 			

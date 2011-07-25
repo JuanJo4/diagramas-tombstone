@@ -7,11 +7,19 @@ import java.awt.Point;
 public class Compilador extends Figura {
 
 	private int ancho;
-	public Compilador(Point posicion, int ancho){
+	private String origen;
+    private String destino;
+    private String escrito;
+    
+    public Compilador(Point posicion, int ancho, String a, String b, String c){
 		this.posicion=posicion;
 		this.ancho=ancho;
 		this.seleccionada=false;  //Deberia estar en el constructor pero por simplicidad
+        this.origen=a;
+        this.destino=b;
+        this.escrito=c;
 	}
+	
 	
 	public void setAncho(int ancho){
 		this.ancho=ancho;
@@ -42,5 +50,13 @@ public class Compilador extends Figura {
 			g.setColor(Color.RED);
 			g.drawRect(this.getX()+7, this.getY()+7, this.getAncho()-20, this.getAncho()-20);
 		}
+		
+		g.setColor(Color.black);
+        g.drawString(origen, getX()-20, getY()+18);
+        g.setColor(Color.black);
+        g.drawString(destino,getX()+40,getY()+18);
+        g.setColor(Color.black);
+        g.drawString(escrito,getX()+10,getY()+50);
+		
 	}	
 }

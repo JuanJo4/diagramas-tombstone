@@ -7,12 +7,16 @@ import java.awt.Point;
 public class Interprete extends Figura {
 	
 	private int ancho;
+	private String interprete;
+    private String escrito;
 	
-	public Interprete(Point posicion, int ancho) {
+    public Interprete(Point posicion, int ancho, String a, String b) {
 		this.posicion=posicion;
 		this.ancho=ancho;
 		this.seleccionada=false;  //Deberia estar en el constructor pero por simplicidad
-	}
+        this.interprete=a;
+        this.escrito=b;
+        }
 
 	public void setAncho(int ancho){
 		this.ancho=ancho;
@@ -38,6 +42,11 @@ public class Interprete extends Figura {
 			g.setColor(Color.RED);
 			g.drawRect(this.getX()+7, this.getY()+7, this.getAncho()-20, this.getAncho()-20);
 		}
+		 
+		 g.setColor(Color.black);
+         g.drawString(interprete, getX()+12, getY()+20);
+         g.setColor(Color.black);
+         g.drawString(escrito, getX()+12, getY()+50);
 	}
 	
 	
