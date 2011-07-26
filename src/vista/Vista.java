@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.Graphics;
@@ -69,6 +70,7 @@ public class Vista extends JPanel {
 	JLabel nameproyect = new JLabel();
 	JMenuBar menubar = new JMenuBar();
 	JPopupMenu popupmenu = new JPopupMenu();
+	JMenu subpopupmenu = new JMenu("Editar");
 	JMenu menuarchivo = new JMenu("Archivo");
 	JMenu menuayuda = new JMenu("Ayuda");
 	
@@ -99,11 +101,15 @@ public class Vista extends JPanel {
 		addMenuItem("Agregar Maquina",KeyEvent.VK_M,null,popupmenu);
 		addMenuItem("Agregar Programa",KeyEvent.VK_P,null,popupmenu);
 		addMenuItem("Agregar Interprete",KeyEvent.VK_I,null,popupmenu);
-                addMenuItem("Eliminar Compilador",KeyEvent.VK_A,null,popupmenu);
-                addMenuItem("Eliminar Maquina",KeyEvent.VK_B,null,popupmenu);
-                addMenuItem("Eliminar Programa",KeyEvent.VK_D,null,popupmenu);
-                addMenuItem("Eliminar Interprete",KeyEvent.VK_E,null,popupmenu);
-                
+		popupmenu.addSeparator();
+        addMenuItem("Eliminar Compilador",KeyEvent.VK_C,subpopupmenu,null);
+        addMenuItem("Eliminar Maquina",KeyEvent.VK_B,subpopupmenu,null);  
+        addMenuItem("Eliminar Programa",KeyEvent.VK_D,subpopupmenu,null);
+        addMenuItem("Eliminar Interprete",KeyEvent.VK_E,subpopupmenu,null);
+        
+        popupmenu.add(subpopupmenu);
+        
+        
 //      this.addKeyListener(new java.awt.event.KeyAdapter() {
 //          public void keyPressed(java.awt.event.KeyEvent evt) {
 //              System.out.println(evt.getKeyChar());
@@ -137,7 +143,6 @@ public class Vista extends JPanel {
 	
 	public void addMenuItem(String label,int keyAcelerator,JMenu parent, JPopupMenu parentpopup){
 		JMenuItem menuitem;
-		
 		menuitem = new JMenuItem(label,new ImageIcon("img/"+ label +".png"));
 		menuitem.setHorizontalTextPosition(JMenuItem.RIGHT);
 		
@@ -155,6 +160,7 @@ public class Vista extends JPanel {
 		else{
 			parentpopup.add(menuitem);
 			popupmenu.setBorder(new BevelBorder(BevelBorder.RAISED));
+			
 		}
 	}
 	public JMenuBar getMenuBar(){
@@ -216,7 +222,10 @@ public class Vista extends JPanel {
 		
 		this.addMouseListener(mouseControl);
 		this.addMouseMotionListener(mouseControl);		
-		//popupmenu.addMouseListener(mouseControl);
+	}
+	
+	public void activarEscuchadorKey(){
+		this.getParent().addKeyListener(controlador.activarEscuchadorKey());
 	}
 	
 }

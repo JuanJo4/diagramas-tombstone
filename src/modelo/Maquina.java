@@ -7,12 +7,14 @@ import java.awt.Point;
 public class Maquina extends Figura {
 
 	private int ancho;
+	private int alto;
 	private String nombre;
 	private int []xPoints = new int [3];
 	private int []yPoints = new int [3];
-	public Maquina(Point posicion, int ancho, String a){
+	public Maquina(Point posicion, int ancho,int alto, String a){
 		this.posicion=posicion;
 		this.ancho=ancho;
+		this.alto=alto;
         this.nombre=a;
 		this.seleccionada=false;  //Deberia estar en el constructor pero por simplicidad
 	}
@@ -22,6 +24,13 @@ public class Maquina extends Figura {
 	}
 	public int getAncho(){
 		return ancho;
+	}
+	
+	public void setAlto(int alto){
+		this.alto=alto;
+	}
+	public int getAlto(){
+		return alto;
 	}
 	
 	@Override
@@ -35,20 +44,22 @@ public class Maquina extends Figura {
 	@Override
 	public void dibujar(Graphics g)
 	{
+		setAncho((nombre.length()*10>40)?(nombre.length()*10):40);
+		
 		g.setColor(Color.GREEN);
-		g.fillRect(this.getX(), this.getY(), this.getAncho(), this.getAncho()); // cuadrado central
+		g.fillRect(this.getX(), this.getY(), this.getAncho(), this.getAlto()); // cuadrado central
 
 		xPoints[0] = this.getX();
 		xPoints[1] = this.getX()+(this.getAncho()/2);
 		xPoints[2] = this.getX()+this.getAncho();
 		
-		yPoints[0] = this.getY()+this.getAncho();
-		yPoints[1] = this.getY()+(this.getAncho()+(this.getAncho()/2));
-		yPoints[2] = this.getY()+this.getAncho();
+		yPoints[0] = this.getY()+this.getAlto();
+		yPoints[1] = this.getY()+(this.getAlto()+(this.getAlto()/2));
+		yPoints[2] = this.getY()+this.getAlto();
 		
 		g.fillPolygon(xPoints, yPoints, 3);
 		g.setColor(Color.black);
-        g.drawString(nombre,getX() + 10 , getY() + 20);
+        g.drawString(nombre,getX() + 5 , getY() + 20);
 
 		
 		if(this.getSeleccionada()){

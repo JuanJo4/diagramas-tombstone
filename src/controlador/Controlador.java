@@ -1,5 +1,6 @@
 package controlador;
 
+import java.awt.Cursor;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import javax.swing.ImageIcon;
@@ -79,10 +80,10 @@ public class Controlador {
 					"Nombre del Compilador", "Nuevo Compilador",
 					JOptionPane.INFORMATION_MESSAGE, new ImageIcon(
 							"img/Nuevo.png"), null, null);
-			System.out.println(name);
 			if (name != null) {
 				if (name.length() != 0) {
 					vista.activeMouseEvent();
+					vista.activarEscuchadorKey();
 					vista.setNameProyect(name);
 					JOptionPane.showMessageDialog(vista,
 							"Para añadir componentes haga\n"
@@ -139,14 +140,9 @@ public class Controlador {
 			break;
 		case stringEvent.AGREGAR_MAQUINA:
 			addMaquina();
-
-			
-			
-
 			break;
 		case stringEvent.AGREGAR_PROGRAMA:
-			addPrograma();
-			
+			addPrograma();			
 			break;
 		case stringEvent.AGREGAR_INTERPRETE:
 			addInterprete();
@@ -187,8 +183,6 @@ public class Controlador {
 
 	public void eVmousePressed(MouseEvent ev) {
 		seleccionada = this.getFiguraEn(ev.getPoint());
-
-		System.out.println(vista.getParent().getLocationOnScreen());
 
 		vista.repaint();
 	}
@@ -233,7 +227,7 @@ public class Controlador {
 					.getX() - vista.getParent().getLocationOnScreen().getX());
 			int b = (int) ((int) MouseInfo.getPointerInfo().getLocation()
 					.getY() - vista.getParent().getLocationOnScreen().getY());
-			this.anyadirFigura(new Compilador(new Point(a, b), 30, origen,
+			this.anyadirFigura(new Compilador(new Point(a, b), 40,40,origen,
 					destino, escrito));
 
 	                } else {
@@ -263,7 +257,7 @@ public class Controlador {
 					.getX() - vista.getParent().getLocationOnScreen().getX());
 			int d = (int) ((int) MouseInfo.getPointerInfo().getLocation()
 					.getY() - vista.getParent().getLocationOnScreen().getY());
-	        this.anyadirFigura(new Maquina(new Point(c, d), 30, maquina));
+	        this.anyadirFigura(new Maquina(new Point(c, d), 40,40, maquina));
 	        return true;
 	    }
 
@@ -286,7 +280,7 @@ public class Controlador {
 						.getX() - vista.getParent().getLocationOnScreen().getX());
 				int g = (int) ((int) MouseInfo.getPointerInfo().getLocation()
 						.getY() - vista.getParent().getLocationOnScreen().getY());
-				this.anyadirFigura(new Programa(new Point(f, g), 30, programa,
+				this.anyadirFigura(new Programa(new Point(f, g), 40,40, programa,
 						lenguaje));
 	        } else {
 	            return false;
@@ -315,7 +309,7 @@ public class Controlador {
 						.getX() - vista.getParent().getLocationOnScreen().getX());
 				int i = (int) ((int) MouseInfo.getPointerInfo().getLocation()
 						.getY() - vista.getParent().getLocationOnScreen().getY());
-				this.anyadirFigura(new Interprete(new Point(h, i), 30, interprete,
+				this.anyadirFigura(new Interprete(new Point(h, i), 40,40, interprete,
 						escrito1));
 	        } else {
 	            return false;
@@ -351,7 +345,6 @@ class keyController implements KeyListener {
 
 
         pressed.add(ke.getKeyCode());
-        System.out.println(ke.getKeyCode() + " " + ke.getKeyChar());
         if (pressed.size() == 2) {
 
             if (pressed.contains(17)) {
