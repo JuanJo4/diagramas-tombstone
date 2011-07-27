@@ -9,6 +9,7 @@ import javax.swing.SwingUtilities;
 
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -32,6 +33,8 @@ public class Controlador {
 	private Modelo modelo;
 	private Vista vista;
 	private Figura seleccionada;
+	private String escrito;
+	
 
 	public Controlador(Modelo modelo, Vista vista) {
 		this.modelo = modelo;
@@ -107,14 +110,35 @@ public class Controlador {
 			}
 			break;
 		case stringEvent.ABRIR:
+			String nameOpenProject = (String) JOptionPane.showInputDialog(vista, "Nombre del proyecto:", "Diagramas T", JOptionPane.INFORMATION_MESSAGE,
+					null, null, null);
+			
+			ObjectContainer dba=Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),nameOpenProject);
+			
+			try{
+				
+				
+				ObjectSet result = dba.queryByExample(Figura.class);
+			  listResult(result);
+			  
+			}
+			finally{
+				dba.close();
+			}
 			
 			break;
 		case stringEvent.GUARDAR:
-			ObjectContainer db=Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "ArchivoDB40");
+			String nameSaveProject = (String) JOptionPane.showInputDialog(vista, "Nombre del proyecto:","Diagramas T", JOptionPane.INFORMATION_MESSAGE,
+					null, null, null);
+			
+			ObjectContainer db=Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),nameSaveProject);
 			
 			try{
 				System.out.println("Guardando en la base de datos");
-			  db.store(this.modelo.getListado());
+				for(int i=0;i<this.modelo.getListado().size();i++){
+					db.store(this.modelo.getListado().get(i));
+				}
+			  
 			}
 			finally{
 				db.close();
@@ -207,7 +231,7 @@ public class Controlador {
 	            String destino = (String) JOptionPane.showInputDialog(vista, "Nombre del lenguaje objeto :", "Compilador", JOptionPane.INFORMATION_MESSAGE,
 	                    null, null, null);
 	            if (destino != null) {
-	                String escrito = (String) JOptionPane.showInputDialog(vista, "Escrito en :", "Nuevo Compilador", JOptionPane.INFORMATION_MESSAGE,
+	                escrito = (String) JOptionPane.showInputDialog(vista, "Escrito en :", "Nuevo Compilador", JOptionPane.INFORMATION_MESSAGE,
 	                        null, null, null);
 	                if (escrito != null) {
 
@@ -245,7 +269,12 @@ public class Controlador {
 					.getX() - vista.getParent().getLocationOnScreen().getX());
 			int d = (int) ((int) MouseInfo.getPointerInfo().getLocation()
 					.getY() - vista.getParent().getLocationOnScreen().getY());
-	        this.anyadirFigura(new Maquina(new Point(c, d), 40,40, maquina));
+	                	
+	       
+	        	this.anyadirFigura(new Maquina(new Point(c, d), 40,40, maquina));
+	       
+	        
+	        
 	        return true;
 	    }
 
@@ -306,6 +335,13 @@ public class Controlador {
 
 
 	        return true;
+	    }
+	    
+	    public static void listResult(List<?> result){
+	        System.out.println(result.size());
+	        for (Object o : result) {
+	            System.out.println(o);
+	        }
 	    }
 }
 
@@ -390,12 +426,7 @@ class keyController implements KeyListener {
         pressed.remove(ke.getKeyCode());
     }
 
-    public static void listResult(List<?> result){
-        System.out.println(result.size());
-        for (Object o : result) {
-            System.out.println(o);
-        }
-    }
+    
 	
 }
 
