@@ -5,12 +5,17 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
+import com.db4o.Db4oEmbedded;
+import com.db4o.ObjectContainer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.util.HashSet;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
@@ -102,8 +107,20 @@ public class Controlador {
 			}
 			break;
 		case stringEvent.ABRIR:
+			
 			break;
 		case stringEvent.GUARDAR:
+			ObjectContainer db=Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), "ArchivoDB40");
+			
+			try{
+				System.out.println("Guardando en la base de datos");
+			  db.store(this.modelo.getListado());
+			}
+			finally{
+				db.close();
+			}
+			
+			
 			break;
 		case stringEvent.SALIR:
 			System.exit(0);
@@ -117,11 +134,7 @@ public class Controlador {
 					+ "   Agregar Compilador    Ctrl + C\n"
 					+ "   Agregar Maquina         Ctrl + M\n"
 					+ "   Agregar Programa      Ctrl + P\n"
-					+ "   Agregar Interprete       Ctrl + I"
-					+ "   Eliminar Compilador       Ctrl + A"
-					+ "   Eliminar Maquina       Ctrl + B"
-					+ "   Eliminar Programa       Ctrl + D"
-					+ "   Eliminar Interprete       Ctrl + E",
+					+ "   Agregar Interprete       Ctrl + I",
 					"Atajos de teclado", JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, new ImageIcon(
 							"img/info.png"), new Object[] {}, null);
@@ -148,43 +161,18 @@ public class Controlador {
 			addInterprete();
 
 			break;
-		/*
-		 * case stringEvent.ELIMINAR_COMPILADOR: int a = (int)
-		 * ((int)MouseInfo.getPointerInfo().getLocation().getX() -
-		 * vista.getParent().getLocationOnScreen().getX()); int b = (int)
-		 * ((int)MouseInfo.getPointerInfo().getLocation().getY() -
-		 * vista.getParent().getLocationOnScreen().getY());
-		 * this.anyadirFigura(new Compilador(new
-		 * Point(a,b),30,origen,destino,escrito)); break; case
-		 * stringEvent.ELIMINAR_MAQUINA: int c = (int)
-		 * ((int)MouseInfo.getPointerInfo().getLocation().getX() -
-		 * vista.getParent().getLocationOnScreen().getX()); int d = (int)
-		 * ((int)MouseInfo.getPointerInfo().getLocation().getY() -
-		 * vista.getParent().getLocationOnScreen().getY());
-		 * this.anyadirFigura(new Maquina(new Point(c,d),30,maquina)); break;
-		 * case stringEvent.ELIMINAR_PROGRAMA: int f = (int)
-		 * ((int)MouseInfo.getPointerInfo().getLocation().getX() -
-		 * vista.getParent().getLocationOnScreen().getX()); int g = (int)
-		 * ((int)MouseInfo.getPointerInfo().getLocation().getY() -
-		 * vista.getParent().getLocationOnScreen().getY());
-		 * this.anyadirFigura(new Programa(new
-		 * Point(f,g),30,programa,lenguaje)); break; case
-		 * stringEvent.ELIMINAR_INTERPRETE: int h = (int)
-		 * ((int)MouseInfo.getPointerInfo().getLocation().getX() -
-		 * vista.getParent().getLocationOnScreen().getX()); int i = (int)
-		 * ((int)MouseInfo.getPointerInfo().getLocation().getY() -
-		 * vista.getParent().getLocationOnScreen().getY());
-		 * this.anyadirFigura(new Interprete(new
-		 * Point(h,i),30,interprete,escrito1)); break;
-		 */
+	
 		}
 		vista.repaint();
 	}
 
 	public void eVmousePressed(MouseEvent ev) {
 		seleccionada = this.getFiguraEn(ev.getPoint());
-
 		vista.repaint();
+		if(SwingUtilities.isRightMouseButton(ev)){
+			seleccionada=this.getFiguraEn(ev.getPoint());
+			this.eliminarFigura(seleccionada);
+		}
 	}
 
 	public void eVmouseDragged(MouseEvent ev) {
@@ -402,6 +390,12 @@ class keyController implements KeyListener {
         pressed.remove(ke.getKeyCode());
     }
 
+    public static void listResult(List<?> result){
+        System.out.println(result.size());
+        for (Object o : result) {
+            System.out.println(o);
+        }
+    }
 	
 }
 

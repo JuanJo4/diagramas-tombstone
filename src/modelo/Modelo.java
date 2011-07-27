@@ -19,8 +19,7 @@ public class Modelo {
 		listaFiguras.add(f);
 	}
 	public void eliminarFigura(Figura f){//zuri
-                //listaFiguras.remove(f); NO ME FUNCIONA
-                  listaFiguras.removeAll(listaFiguras);//SI FUNCIONA PERO LAS BORRA TODASSSS
+		listaFiguras.remove(f);
         }
 	public Figura getFiguraEn(Point p){
 		for (Figura elemento : getListado()) {

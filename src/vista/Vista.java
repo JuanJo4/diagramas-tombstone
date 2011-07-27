@@ -70,7 +70,6 @@ public class Vista extends JPanel {
 	JLabel nameproyect = new JLabel();
 	JMenuBar menubar = new JMenuBar();
 	JPopupMenu popupmenu = new JPopupMenu();
-	JMenu subpopupmenu = new JMenu("Editar");
 	JMenu menuarchivo = new JMenu("Archivo");
 	JMenu menuayuda = new JMenu("Ayuda");
 	
@@ -102,12 +101,8 @@ public class Vista extends JPanel {
 		addMenuItem("Agregar Programa",KeyEvent.VK_P,null,popupmenu);
 		addMenuItem("Agregar Interprete",KeyEvent.VK_I,null,popupmenu);
 		popupmenu.addSeparator();
-        addMenuItem("Eliminar Compilador",KeyEvent.VK_C,subpopupmenu,null);
-        addMenuItem("Eliminar Maquina",KeyEvent.VK_B,subpopupmenu,null);  
-        addMenuItem("Eliminar Programa",KeyEvent.VK_D,subpopupmenu,null);
-        addMenuItem("Eliminar Interprete",KeyEvent.VK_E,subpopupmenu,null);
         
-        popupmenu.add(subpopupmenu);
+    
         
         
 //      this.addKeyListener(new java.awt.event.KeyAdapter() {
