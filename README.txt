@@ -19,3 +19,4 @@ Agregar Maquina		Ctrl + M
 Agregar Programa	Ctrl + P
 Agregar Interprete	Ctrl + I
 
+AL EJECUTAR DEL JAR , LA FUNCIÓN DE ABRIR SOLO ME IMPRIME EN EL ECLIPSE LOS ELEMENTOS, 
